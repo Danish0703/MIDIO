@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - MIDIO</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f7fa;
+        }
+
+        main {
+            flex: 1;
+        }
+
+        .navbar {
+            background-color: rgba(79, 70, 229);
+        }
+
+        .navbar .nav-link {
+            color: white !important;
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        footer {
+            background-color: rgba(79, 70, 229);
+            color: white;
+            padding: 1rem 0;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: #6366f1;
+        }
+
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-custom {
+            background-color: #2563eb;
+            color: white;
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.25rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn-custom:hover {
+            background-color: #1d4ed8;
+        }
+
+        .progress-chart {
+            height: 200px;
+            background-color: #e0e7ff;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #4b5563;
+        }
+
+        .task-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .task-list li {
+            background-color: #ffffff;
+            margin: 0.5rem 0;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a href="#" class="navbar-brand">MIDIO</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="profile.html">Profile</a></li>
+                    <li class="nav-item"><a class="nav-link" href="logout.html">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <div class="container mt-4">
+            <h2>Welcome Back, User!</h2>
+            <div class="row" style="padding-top: 10%;">
+                <div class="col-md-6">
+                    <h4>Your Progress</h4>
+                    <div class="progress-chart">
+                        <canvas id="progressChart"></canvas>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h4>Upcoming Tasks</h4>
+                    <ul class="task-list">
+                        <li><input type="checkbox" onchange="toggleTask(this)"> Complete your Soft Skills Assessment
+                        </li>
+                        <li><input type="checkbox" onchange="toggleTask(this)"> Communication Skills module</li>
+                        <li><input type="checkbox" onchange="toggleTask(this)"> Leadership Skills module</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Combined Section: Skill Assessment and Mock Interview -->
+        <section class="my-4"
+            style="background-color: white; padding: 3rem 0; text-align: center; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+            <div class="container">
+                <div class="row">
+                    <!-- Skill Assessment Column -->
+                    <div class="col-md-6">
+                        <h2 style="font-weight: bold; margin-bottom: 1rem;">Skill Assessment</h2>
+                        <a href="dashboardd.html" target="_blank" style="text-decoration: none;">
+                            <button class="btn-custom" data-bs-toggle="tooltip" data-bs-placement="top"
+                                title="Take the skill assessment">Take Assessment</button>
+                        </a>
+                    </div>
+
+                    <!-- Mock Interview Column -->
+                    <div class="col-md-6">
+                        <h2 style="font-weight: bold; margin-bottom: 1rem;">Mock Interview</h2>
+                        <a href="./interview/index.html" target="_blank" style="text-decoration: none;">
+                            <button class="btn-custom" data-bs-toggle="tooltip" data-bs-placement="top"
+                                title="Practice your interview skills">Take Mock Interview</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="text-center">
+        <div class="container">
+            <p class="mb-4">© 2024 Midio. All rights reserved.</p>
+            <div>
+                <a href="#">Privacy Policy</a> |
+                <a href="#">Terms of Service</a> |
+                <a href="#">Contact Us</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const ctx = document.getElementById('progressChart').getContext('2d');
+        const progressChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Module 1', 'Module 2', 'Module 3'],
+                datasets: [{
+                    label: 'Progress',
+                    data: [12, 19, 3], // Example data
+                    backgroundColor: 'rgba(79, 70, 229, 0.5)',
+                    borderColor: 'rgba(79, 70, 229, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        function toggleTask(checkbox) {
+            if (checkbox.checked) {
+                checkbox.parentElement.style.textDecoration = "line-through";
+            } else {
+                checkbox.parentElement.style.textDecoration = "none";
+            }
+        }
+
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
+
+        function showNotification(message) {
+            alert(message);
+        }
+
+        // Example usage
+        showNotification("Don't forget to complete your tasks!");
+    </script>
+</body>
+
+</html>

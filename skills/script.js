@@ -1,31 +1,59 @@
-// Fetch user data
-async function fetchUser() {
-    const response = await fetch("http://localhost:5000/api/user");
-    const user = await response.json();
+// Simple Form Validation (Sign-Up & Login)
+document.getElementById("loginForm")?.addEventListener("submit", function (event) {
+    event.preventDefault();
 
-    document.getElementById("userName").textContent = user.name;
-    document.getElementById("userEmail").textContent = user.email;
-}
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
 
-// Update user data
-document.getElementById("profileForm").addEventListener("submit", async function (event) {
+    if (email && password) {
+        alert("Login successful!");
+        // Redirect to the dashboard
+        window.location.href = "dashboard.html";
+    } else {
+        alert("Please fill in all fields.");
+    }
+});
+
+document.getElementById("signupForm")?.addEventListener("submit", function (event) {
     event.preventDefault();
 
     const name = document.getElementById("name").value;
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
 
-    const response = await fetch("http://localhost:5000/api/user", {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, password }),
-    });
-
-    if (response.ok) {
-        alert("Profile updated successfully!");
-        fetchUser();
+    if (name && email && password) {
+        alert("Account created successfully!");
+        // Redirect to login page
+        window.location.href = "login.html";
+    } else {
+        alert("Please fill in all fields.");
     }
 });
 
-// Load user data on page load
-fetchUser();
+// Mock Interview Response Handling
+function submitResponse() {
+    const response = document.getElementById("response").value;
+    if (response) {
+        alert("Your response has been submitted for review.");
+        // Here, you can add the logic to analyze the response with AI or speech recognition.
+    } else {
+        alert("Please enter a response.");
+    }
+}
+
+// Progress Bar (for Dashboard)
+document.addEventListener("DOMContentLoaded", function () {
+    // Simulate a progress bar for soft skills development
+    const progress = document.getElementById("progressChart");
+
+    let progressValue = 0;
+
+    const interval = setInterval(function () {
+        if (progressValue < 80) {
+            progressValue += 1;
+            progress.style.background = `linear-gradient(to right, #28a745 ${progressValue}%, #f0f0f0 ${progressValue}%)`;
+        } else {
+            clearInterval(interval);
+        }
+    }, 30); // Adjust speed of progress
+});
