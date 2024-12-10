@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Assessment Dashboard - MIDIO</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">MIDIO</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="mockinterview.html">Mock Interview</a></li>
+                    <li class="nav-item"><a class="nav-link" href="courses.html">Courses</a></li>
+                    <li class="nav-item"><a class="nav-link" href="profile.html">Profile</a></li>
+                    <li class="nav-item"><a class="nav-link" href="logout.html">Logout</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="dashboard.html">Assessment Dashboard</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <h2>Welcome Back, User!</h2>
+        <div class="row">
+            <div class="col-md-6">
+                <h4>Your Assessment Scores</h4>
+                <canvas id="assessmentChart"></canvas>
+            </div>
+            <div class="col-md-6">
+                <h4>Completed Assessments</h4>
+                <ul id="completedAssessments">
+                    <!-- Completed assessments will be populated here -->
+                </ul>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <h4>Upcoming Assessments</h4>
+                <ul id="upcomingAssessments">
+                    <!-- Upcoming assessments will be populated here -->
+                </ul>
+            </div>
+        </div>
+    </div>
+    <footer class="bg-gray-800 text-white py-6">
+        <div class="container mx-auto px-6 text-center">
+            <p class="mb-4">© 2024 Midio. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const ctx = document.getElementById('assessmentChart').getContext('2d');
+        const assessmentChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+                datasets: [{
+                    label: 'Scores',
+                    data: [85, 90, 78, 88],
+                    fill: false,
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    tension: 0.1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100
+                    }
+                }
+            }
+        });
+
+        // Mock function to simulate fetching data from an API
+        function fetchAssessmentData() {
+            // Simulated data
+            const completed = [
+                { name: "JavaScript Basics", score: "85%" },
+                { name: "HTML & CSS Fundamentals", score: "90%" },
+                { name: "React Introduction", score: "78%" }
+            ];
+
+            const upcoming = [
+                { name: "Advanced JavaScript", due: "Next Monday" },
+                { name: "CSS Grid and Flexbox", due: "Next Wednesday" },
+                { name: "React Hooks", due: "Next Friday"
