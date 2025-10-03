@@ -33,8 +33,3 @@ To make the experience immersive, MIDIO features a **speech-to-text chatbot powe
 ## 📌 About  
 MIDIO was developed during a hackathon to make interview preparation smarter and more engaging. By combining **AI, machine learning, and web development**, MIDIO helps job seekers practice interviews in a safe, interactive, and realistic environment.  
 """
-
-with open("/mnt/data/README.md", "w", encoding="utf-8") as f:
-    f.write(readme_content)
-
-"/mnt/data/README.md"
