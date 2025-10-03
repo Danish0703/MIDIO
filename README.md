@@ -1,5 +1,3 @@
-readme_content = """# MIDIO — AI-Powered Interview Preparation Website
-
 **MIDIO** is a web-based platform built to help users prepare for job interviews in a realistic and interactive way. The platform focuses on **soft-spoken communication**, teaching users how to answer interview questions effectively, while also providing practice for **aptitude and reasoning rounds**.  
 
 To make the experience immersive, MIDIO features a **speech-to-text chatbot powered by a lightweight LLM**, which acts as a virtual interviewer. Users can speak their answers, receive transcriptions, and get feedback — simulating a real interview environment.  
